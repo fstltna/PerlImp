@@ -727,6 +727,7 @@ Public License instead of this License.  But first, please read
     <property name="default_width">640</property>
     <property name="default_height">480</property>
     <property name="icon">logo-32x32.png</property>
+    <signal name="destroy" handler="gtk_main_quit" swapped="no"/>
     <child>
       <widget class="GtkVBox" id="GUI_vbox1">
         <property name="visible">True</property>
@@ -794,6 +795,7 @@ Public License instead of this License.  But first, please read
                         <property name="can_focus">False</property>
                         <property name="use_underline">True</property>
                         <property name="use_stock">True</property>
+                        <signal name="button_release_event" handler="gtk_main_quit" swapped="no"/>
                       </widget>
                     </child>
                   </widget>

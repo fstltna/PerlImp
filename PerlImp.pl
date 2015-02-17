@@ -5,6 +5,7 @@ use strict;
 use Gtk2 -init;
 use lib qw( lib );
 use Gtk2::GladeXML::OO;
+use Net::Telnet;
 #======================================================================
 # GLADEXML
 our $gladexml = Gtk2::GladeXML::OO->new('PerlImp.glade');

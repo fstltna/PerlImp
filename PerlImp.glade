@@ -2,6 +2,50 @@
 <glade-interface>
   <!-- interface-requires gtk+ 2.24 -->
   <!-- interface-naming-policy project-wide -->
+  <widget class="GtkAboutDialog" id="aboutdialog1">
+    <property name="can_focus">False</property>
+    <property name="border_width">5</property>
+    <property name="type">popup</property>
+    <property name="title" translatable="yes">About PerlImp</property>
+    <property name="role">about1</property>
+    <property name="resizable">False</property>
+    <property name="modal">True</property>
+    <property name="window_position">center-on-parent</property>
+    <property name="destroy_with_parent">True</property>
+    <property name="type_hint">dialog</property>
+    <property name="has_separator">True</property>
+    <property name="program_name">PerlImp</property>
+    <property name="version">0.1.0</property>
+    <property name="copyright" translatable="yes">(C) 2015 Poocketfiction</property>
+    <property name="comments" translatable="yes">Welcome to PerlImp, the best client for Imperium</property>
+    <property name="website">https://EmpireDirectory.net</property>
+    <property name="website_label" translatable="yes">https://EmpireDirectory.net</property>
+    <property name="license" translatable="yes">Released under the GPL License</property>
+    <property name="authors">Marisa Giancarla &lt;info@empiredirectory.net&gt;</property>
+    <property name="logo">logo-128x128.png</property>
+    <child internal-child="vbox">
+      <widget class="GtkVBox" id="dialog-vbox1">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="spacing">2</property>
+        <child internal-child="action_area">
+          <widget class="GtkHButtonBox" id="dialog-action_area1">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="layout_style">end</property>
+          </widget>
+          <packing>
+            <property name="expand">True</property>
+            <property name="fill">True</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+      </widget>
+    </child>
+  </widget>
   <widget class="GtkWindow" id="window1">
     <property name="visible">True</property>
     <property name="can_focus">False</property>

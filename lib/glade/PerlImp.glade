@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <glade-interface>
-  <!-- interface-requires gtk+ 2.10 -->
+  <!-- interface-requires gtk+ 2.24 -->
   <!-- interface-naming-policy toplevel-contextual -->
   <widget class="GtkWindow" id="About">
     <property name="can_focus">False</property>
@@ -546,7 +546,6 @@
             <property name="can_focus">False</property>
             <property name="border_width">1</property>
             <property name="hscrollbar_policy">never</property>
-            <property name="vscrollbar_policy">automatic</property>
             <property name="shadow_type">out</property>
             <child>
               <placeholder/>

@@ -24,8 +24,8 @@ sub quit {
 	
 	return unless Gtk2::Ex::Dialogs::Question->ask(
 		icon	=> q/question/,
-		title 	=> "End of work...",
-		text 	=> "<span color='#a00'>Are you really want to quit?</span>"
+		title 	=> "Exit PerlImp?",
+		text 	=> "<span color='#a00'>Do you really want to quit?</span>"
 	);
 
 	return Gtk2->main_quit;

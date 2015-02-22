@@ -9,6 +9,7 @@ use lib qw( ../lib/perl );
 use Gtk2 -init;
 use Gtk2::GladeXML::OO;
 use Net::Telnet;
+use Storable;
 
 # Internal libraries ---------------------------------------------------
 use Imperium::Main;

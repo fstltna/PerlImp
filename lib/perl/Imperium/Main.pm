@@ -228,5 +228,23 @@ sub saveData {
 	store($Globals, "$BaseFileName.plimp");
 }
 #======================================================================
+sub method {
+	my $self = shift;
+
+	if($#_ == -1) {
+		print "Callback without params!\n";
+	} else {
+		print "Parameters: @_\n"; 
+	}
+}
+#======================================================================
+sub openConnect {
+	print "called openConnect!\n";
+}
+#======================================================================
+sub closeConnect {
+	print "Called closeConnect\n";
+}
+#======================================================================
 
 1;

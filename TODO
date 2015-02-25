@@ -2,7 +2,7 @@ Changes in the process of being completed
 =========================================
 1) Tried to set up global variables, but fails
 2) Need example of activating & deactivating menu options
-3) How to read in text for built-in help viewer
-4) Need example of how to call perl subs from within .glade file
-5) The “do you want to quit” message is resizable and should not be
-6) Maybe more? I coded these with "ZZZ"
+3) Need example of how to call perl subs from within .glade file
+4) The “do you want to quit” message is resizable and should not be
+5) Maybe more? I coded these with "ZZZ"
+6) Need Help file content

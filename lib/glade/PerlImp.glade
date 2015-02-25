@@ -971,7 +971,16 @@
                             <property name="hscrollbar_policy">automatic</property>
                             <property name="vscrollbar_policy">automatic</property>
                             <child>
-                              <placeholder/>
+                              <widget class="GtkTextView" id="HelpTextView">
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                                <property name="editable">False</property>
+                                <property name="text" translatable="yes">PerlImp is a client for the multiplayer network game Imperium.
+
+As you can tell by the name it is written in Perl. It uses the Gtk2
+GUI library for its GUI and should run on any platform that
+supports those reqirements.</property>
+                              </widget>
                             </child>
                           </widget>
                           <packing>

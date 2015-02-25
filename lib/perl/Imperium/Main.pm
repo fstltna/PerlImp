@@ -14,7 +14,16 @@ use Gtk2::Ex::Dialogs (
 # Global Vars
 my $DEFAULTSERVER = "empiredirectory.net";
 my $DEFAULTSERVERPORT = "3458";
-my $BaseFilename = "Basename";	# What the left part of the fiule name should be
+my $BaseFilename = "Basename";	# What the left part of the file name should be
+my $DirtyData = 0;
+my $AtMainPrompt = 0;
+my $QueueOk = 1;
+my $QueueEcho = 1;
+my $StopQueue = 0;
+my $NumCmds = 0;
+my $Game_Time = 0;
+my $Game_BTUs = 0;
+my $GameSocket = -1;
 
 # Create Defs
 my $ConfServerHost = $DEFAULTSERVER;
@@ -28,10 +37,25 @@ my $LastSavedPlayerPswd = "";
 
 # Main App Settings
 $Globals{"Default"} = {
-	ServerHost => $DEFAULTSERVER,
-	ServerPort => $DEFAULTSERVERPORT,
-	PlayerName => '',
-	PlayerPswd => ''
+	ServerHost	=> $DEFAULTSERVER,
+	ServerPort	=> $DEFAULTSERVERPORT,
+	PlayerName	=> '',
+	PlayerPswd	=> '',
+	GameVersion => 1,
+	GameDesc	=> '',
+	SizeX		=> 255,
+	SizeY		=> 255,
+	NextShip	=> 0,
+	LastShip	=> 0,
+	NextPlanet	=> 0,
+	LastPlanet	=> 0,
+	LastX		=> 0,
+	LastY		=> 0,
+	NextItem	=> 0,
+	HomePlanet	=> 0,
+	HomeRow		=> 0,
+	HomeCol		=> 0,
+	PlayerNum	=> 0
 };
 
 # Planet table definitions 

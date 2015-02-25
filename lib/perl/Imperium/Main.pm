@@ -3,6 +3,9 @@ package Imperium::Main;
 # Pragmas --------------------------------------------------------------
 use warnings;
 #use strict;	# ZZZ Remove this
+use Net::Telnet;
+use Storable;
+
 # External libraries ---------------------------------------------------
 use Gtk2;
 use Gtk2::Ex::Dialogs ( 
@@ -216,9 +219,9 @@ sub resetLastSaved {
 #======================================================================
 # Load in data
 sub loadData {
-	$Planets = retrieve("$BaseFileName.plan");
-	$Ships = retrieve("$BaseFileName.ship");
-	$Globals = retrieve("$BaseFileName.plimp");
+	$Planets = retrieve("$BaseFilename.plan");
+	$Ships = retrieve("$BaseFilename.ship");
+	$Globals = retrieve("$BaseFilename.plimp");
 }
 #======================================================================
 # Save data
@@ -226,6 +229,15 @@ sub saveData {
 	store($Planets, "$BaseFileName.plan");
 	store($Ships, "$BaseFileName.ship");
 	store($Globals, "$BaseFileName.plimp");
+}
+#======================================================================
+# Save new data struct
+sub fileSaveInit {
+	my $self = shift;
+
+	print "Parameters: @_\n"; 
+	$BaseFileName = "";
+	#saveData();
 }
 #======================================================================
 sub method {
@@ -239,7 +251,7 @@ sub method {
 }
 #======================================================================
 sub openConnect {
-	print "called openConnect!\n";
+	print "called openConnect\n";
 }
 #======================================================================
 sub closeConnect {

@@ -211,13 +211,13 @@
               </packing>
             </child>
             <child>
-              <widget class="GtkButton" id="button2">
+              <widget class="GtkButton" id="LoadButton">
                 <property name="label">gtk-open</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
                 <property name="use_stock">True</property>
-                <signal name="clicked" handler="Main-&gt;method()" swapped="no"/>
+                <signal name="clicked" handler="Main-&gt;loadData()" swapped="no"/>
               </widget>
               <packing>
                 <property name="expand">False</property>
@@ -278,6 +278,7 @@
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
                 <property name="use_stock">True</property>
+                <signal name="clicked" handler="Main-&gt;fileSaveInit()" swapped="no"/>
               </widget>
               <packing>
                 <property name="expand">False</property>
@@ -325,7 +326,7 @@
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <child>
-                      <widget class="GtkImageMenuItem" id="imagemenuitem1">
+                      <widget class="GtkImageMenuItem" id="NewMenuItem">
                         <property name="label">gtk-new</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
@@ -335,7 +336,7 @@
                       </widget>
                     </child>
                     <child>
-                      <widget class="GtkImageMenuItem" id="imagemenuitem2">
+                      <widget class="GtkImageMenuItem" id="OpenMenuItem">
                         <property name="label">gtk-open</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
@@ -345,19 +346,21 @@
                       </widget>
                     </child>
                     <child>
-                      <widget class="GtkImageMenuItem" id="imagemenuitem3">
+                      <widget class="GtkImageMenuItem" id="SaveMenuItem">
                         <property name="label">gtk-save</property>
                         <property name="visible">True</property>
+                        <property name="sensitive">False</property>
                         <property name="can_focus">False</property>
                         <property name="use_underline">True</property>
                         <property name="use_stock">True</property>
-                        <signal name="activate_item" handler="Main-&gt;saveData()" swapped="no"/>
+                        <signal name="activate" handler="Main-&gt;saveData()" swapped="no"/>
                       </widget>
                     </child>
                     <child>
-                      <widget class="GtkImageMenuItem" id="imagemenuitem4">
+                      <widget class="GtkImageMenuItem" id="CloseMenuItem">
                         <property name="label">gtk-close</property>
                         <property name="visible">True</property>
+                        <property name="sensitive">False</property>
                         <property name="can_focus">False</property>
                         <property name="use_underline">True</property>
                         <property name="use_stock">True</property>
@@ -367,6 +370,7 @@
                       <widget class="GtkImageMenuItem" id="Configuration">
                         <property name="label">gtk-properties</property>
                         <property name="visible">True</property>
+                        <property name="sensitive">False</property>
                         <property name="can_focus">False</property>
                         <property name="use_underline">True</property>
                         <property name="use_stock">True</property>
@@ -405,9 +409,10 @@
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <child>
-                      <widget class="GtkImageMenuItem" id="imagemenuitem6">
+                      <widget class="GtkImageMenuItem" id="OpenConMenuItem">
                         <property name="label">Open Connection</property>
                         <property name="visible">True</property>
+                        <property name="sensitive">False</property>
                         <property name="can_focus">False</property>
                         <property name="use_stock">False</property>
                         <signal name="activate" handler="Main-&gt;openConnect()" swapped="no"/>
@@ -421,9 +426,10 @@
                       </widget>
                     </child>
                     <child>
-                      <widget class="GtkImageMenuItem" id="imagemenuitem7">
+                      <widget class="GtkImageMenuItem" id="CloseConMenuItem">
                         <property name="label">Close Connection</property>
                         <property name="visible">True</property>
+                        <property name="sensitive">False</property>
                         <property name="can_focus">False</property>
                         <property name="use_stock">False</property>
                         <signal name="activate" handler="Main-&gt;closeConnect()" swapped="no"/>
@@ -451,8 +457,9 @@
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <child>
-                      <widget class="GtkMenuItem" id="menuitem6">
+                      <widget class="GtkMenuItem" id="MapMenuItem">
                         <property name="visible">True</property>
+                        <property name="sensitive">False</property>
                         <property name="can_focus">False</property>
                         <property name="label" translatable="yes">Map</property>
                         <property name="use_underline">True</property>
@@ -460,8 +467,9 @@
                       </widget>
                     </child>
                     <child>
-                      <widget class="GtkMenuItem" id="menuitem7">
+                      <widget class="GtkMenuItem" id="ShipsMenuItem">
                         <property name="visible">True</property>
+                        <property name="sensitive">False</property>
                         <property name="can_focus">False</property>
                         <property name="label" translatable="yes">Ships</property>
                         <property name="use_underline">True</property>
@@ -469,8 +477,9 @@
                       </widget>
                     </child>
                     <child>
-                      <widget class="GtkMenuItem" id="menuitem8">
+                      <widget class="GtkMenuItem" id="PlanetsMenuItem">
                         <property name="visible">True</property>
+                        <property name="sensitive">False</property>
                         <property name="can_focus">False</property>
                         <property name="label" translatable="yes">Planets</property>
                         <property name="use_underline">True</property>
@@ -478,24 +487,27 @@
                       </widget>
                     </child>
                     <child>
-                      <widget class="GtkMenuItem" id="menuitem9">
+                      <widget class="GtkMenuItem" id="ScriptsMenuItem">
                         <property name="visible">True</property>
+                        <property name="sensitive">False</property>
                         <property name="can_focus">False</property>
                         <property name="label" translatable="yes">Scripts</property>
                         <property name="use_underline">True</property>
                       </widget>
                     </child>
                     <child>
-                      <widget class="GtkMenuItem" id="menuitem10">
+                      <widget class="GtkMenuItem" id="CommandsMenuItem">
                         <property name="visible">True</property>
+                        <property name="sensitive">False</property>
                         <property name="can_focus">False</property>
                         <property name="label" translatable="yes">Commands</property>
                         <property name="use_underline">True</property>
                       </widget>
                     </child>
                     <child>
-                      <widget class="GtkMenuItem" id="menuitem11">
+                      <widget class="GtkMenuItem" id="ClearMenuItem">
                         <property name="visible">True</property>
+                        <property name="sensitive">False</property>
                         <property name="can_focus">False</property>
                         <property name="label" translatable="yes">Clear Display</property>
                         <property name="use_underline">True</property>

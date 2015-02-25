@@ -3,8 +3,6 @@ package Imperium::Main;
 # Pragmas --------------------------------------------------------------
 use warnings;
 #use strict;	# ZZZ Remove this
-use Net::Telnet;
-use Storable;
 
 # External libraries ---------------------------------------------------
 use Gtk2;
@@ -13,6 +11,8 @@ use Gtk2::Ex::Dialogs (
 	modal 				=> 1, 
 	no_separator 		=> 0 
 );
+use Net::Telnet;
+use Storable;
 #=======================================================================
 # Global Vars
 my $DEFAULTSERVER = "empiredirectory.net";

@@ -241,7 +241,7 @@
   <widget class="GtkFileChooserDialog" id="FileSaveChooser">
     <property name="can_focus">False</property>
     <property name="border_width">5</property>
-    <property name="title" translatable="yes">Save Game config</property>
+    <property name="title" translatable="yes">Save Game Config</property>
     <property name="role">GtkFileChooserDialog</property>
     <property name="type_hint">dialog</property>
     <property name="do_overwrite_confirmation">True</property>
@@ -272,7 +272,7 @@
               </packing>
             </child>
             <child>
-              <widget class="GtkButton" id="button2">
+              <widget class="GtkButton" id="SaveButton">
                 <property name="label">gtk-save</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>

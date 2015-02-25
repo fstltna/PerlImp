@@ -234,8 +234,11 @@ sub saveData {
 # Save new data struct
 sub fileSaveInit {
 	my $self = shift;
+	my $selectedFile;
 
-	print "Parameters: @_\n"; 
+	print "Parameters: @_\n";
+	$selectedFile = $FileSaveChooser->get_filename;
+	print "$selectedFile\n";
 	$BaseFileName = "";
 	#saveData();
 }

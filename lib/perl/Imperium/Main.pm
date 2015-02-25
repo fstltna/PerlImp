@@ -12,17 +12,18 @@ use Gtk2::Ex::Dialogs (
 );
 #=======================================================================
 # Global Vars
-$DefaultServer = "empiredirectory.net";
-$DefaultServerPort = "3458";
+my $DEFAULTSERVER = "empiredirectory.net";
+my $DEFAULTSERVERPORT = "3458";
+
 # Create Defs
-$ConfServerHost = $DefaultServer;
-$ConfServerPort = $DefaultServerPort;
-$ConfPlayerName = "";
-$ConfPlayerPswd = "";
-$LastSavedServerHost = "";
-$LastSavedServerPort = "";
-$LastSavedPlayerName = "";
-$LastSavedPlayerPswd = "";
+my $ConfServerHost = $DEFAULTSERVER;
+my $ConfServerPort = $DEFAULTSERVERPORT;
+my $ConfPlayerName = "";
+my $ConfPlayerPswd = "";
+my $LastSavedServerHost = "";
+my $LastSavedServerPort = "";
+my $LastSavedPlayerName = "";
+my $LastSavedPlayerPswd = "";
 #=======================================================================
 sub new { 
 	my ($class) = @_;
@@ -47,8 +48,8 @@ sub quit {
 #======================================================================
 # Resets the server settings to default
 sub resetDefaults {
-	$ConfServerHost = $DefaultServer;
-	$ConfServerPort = $DefaultServerPort;
+	$ConfServerHost = $DEFAULTSERVER;
+	$ConfServerPort = $DEFAULTSERVERPORT;
 	$ConfPlayerName = "";
 	$ConfPlayerPswd = "";
 }

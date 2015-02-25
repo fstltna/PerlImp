@@ -14,7 +14,7 @@ use Gtk2::Ex::Dialogs (
 # Global Vars
 my $DEFAULTSERVER = "empiredirectory.net";
 my $DEFAULTSERVERPORT = "3458";
-my $BaseFilename = "Basename";	# WHat the left part of the fiule name should be
+my $BaseFilename = "Basename";	# What the left part of the fiule name should be
 
 # Create Defs
 my $ConfServerHost = $DEFAULTSERVER;
@@ -25,6 +25,14 @@ my $LastSavedServerHost = "";
 my $LastSavedServerPort = "";
 my $LastSavedPlayerName = "";
 my $LastSavedPlayerPswd = "";
+
+# Main App Settings
+$Globals{"Default"} = {
+	ServerHost => $DEFAULTSERVER,
+	ServerPort => $DEFAULTSERVERPORT,
+	PlayerName => '',
+	PlayerPswd => ''
+};
 
 # Planet table definitions 
 $Planets{"Default"} = {
@@ -169,29 +177,31 @@ sub quit {
 #======================================================================
 # Resets the server settings to default
 sub resetDefaults {
-	$ConfServerHost = $DEFAULTSERVER;
-	$ConfServerPort = $DEFAULTSERVERPORT;
-	$ConfPlayerName = "";
-	$ConfPlayerPswd = "";
+	$Globals{"Active"} = $Globals{"Default"};
 }
 #======================================================================
 # Resets the server settings to last saved
 sub resetLastSaved {
-	$ConfServerHost = $LastSavedServerHost;
-	$ConfServerPort = $LastSavedServerPort;
-	$ConfPlayerName = $LastSavedPlayerName;
-	$ConfPlayerPswd = $LastSavedPlayerPswd;
-	#PrefWindow->hide()	# ZZZ How to do this?
+	$Globals{"Active"} = {
+		ServerHost => $LastSavedServerHost,
+		ServerPort => $LastSavedServerPort,
+		PlayerName => $LastSavedPlayerName,
+		PlayerPswd => $LastSavedPlayerPswd
+	}
 }
 #======================================================================
 # Load in data
 sub loadData {
 	$Planets = retrieve("$BaseFileName.plan");
+	$Ships = retrieve("$BaseFileName.ship");
+	$Globals = retrieve("$BaseFileName.plimp");
 }
 #======================================================================
 # Save data
 sub saveData {
 	store($Planets, "$BaseFileName.plan");
+	store($Ships, "$BaseFileName.ship");
+	store($Globals, "$BaseFileName.plimp");
 }
 #======================================================================
 

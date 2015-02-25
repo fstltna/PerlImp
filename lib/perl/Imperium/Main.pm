@@ -181,6 +181,10 @@ $Ships{"Default"} = {
 	num_elect => 0		# Electronics
 };
 
+#======================================================================
+my $filter = Gtk2::FileFilter->new();
+$filter->set_name("PerlImp");
+$filter->add_pattern("*.plimp");
 #=======================================================================
 sub new { 
 	my ($class) = @_;
@@ -206,6 +210,7 @@ sub quit {
 # Resets the server settings to default
 sub resetDefaults {
 	$Globals{"Active"} = $Globals{"Default"};
+	resetMenuState();
 }
 #======================================================================
 # Resets the server settings to last saved
@@ -215,32 +220,21 @@ sub resetLastSaved {
 		ServerPort => $LastSavedServerPort,
 		PlayerName => $LastSavedPlayerName,
 		PlayerPswd => $LastSavedPlayerPswd
-	}
+	};
+	$::ConfServerHost->set_text($LastSavedServerHost);
+	$::ConfServerPort->set_text($LastSavedServerPort);
+	$::ConfPlayerName->set_text($LastSavedPlayerName);
+	$::ConfPlayerPswd->set_text($LastSavedPlayerPswd);
+	$::PrefWindow->hide();
 }
 #======================================================================
 # Load in data
 sub loadData {
-	$Planets = retrieve("$BaseFileName.plan");
-	$Ships = retrieve("$BaseFileName.ship");
-	$Globals = retrieve("$BaseFileName.plimp");
-}
-#======================================================================
-# Save data
-sub saveData {
-	store($Planets, "$BaseFileName.plan");
-	store($Ships, "$BaseFileName.ship");
-	store($Globals, "$BaseFileName.plimp");
-}
-#======================================================================
-# Save new data struct
-sub fileSaveInit {
-	my $self = shift;
 	my $selectedFile, $WorkPos;
 
-	$selectedFile = $::FileSaveChooser->get_filename;
+	$::FileOpenChooser->add_filter($filter);
+	$selectedFile = $::FileOpenChooser->get_filename;
 	if ($selectedFile ne "") {
-		#print "$selectedFile\n";
-		#($BaseFilepath, $BaseFileName) = split("/", $selectedFile);
 		$WorkPos = rindex($selectedFile, '/');
 		$BaseFilePath = substr($selectedFile, 0, $WorkPos + 1);
 		$BaseFileName = substr($selectedFile, $WorkPos + 1);
@@ -248,12 +242,99 @@ sub fileSaveInit {
 		if ($WorkPos != 0) {
 			$BaseFileName = substr($BaseFileName, 0, $WorkPos);
 		}
-		#print "path = $BaseFilePath\n";
-		#print "name = $BaseFileName\n";
+		chdir ($BaseFilePath);
+		setConfiguredMenuState();
+		# Load the data tables
+		$Planets = retrieve("$BaseFileName.plan");
+		$Ships = retrieve("$BaseFileName.ship");
+		$Globals = retrieve("$BaseFileName.plimp");
+		$LastSavedServerHost = $DEFAULTSERVER;
+		$LastSavedServerPort = $DEFAULTSERVERPORT;
+		$LastSavedPlayerName = "";
+		$LastSavedPlayerPswd = "";
+		$::FileOpenChooser->hide();
+	}
+}
+#======================================================================
+# Save data
+sub saveData {
+	store \$Planets, "$BaseFileName.plan";
+	store \$Ships, "$BaseFileName.ship";
+	store \$Globals, "$BaseFileName.plimp";
+}
+#======================================================================
+# Save new data struct
+sub fileSaveInit {
+	my $self = shift;
+	my $selectedFile, $WorkPos;
+
+	$::FileSaveChooser->add_filter($filter);
+	$selectedFile = $::FileSaveChooser->get_filename;
+	if ($selectedFile ne "") {
+		$WorkPos = rindex($selectedFile, '/');
+		$BaseFilePath = substr($selectedFile, 0, $WorkPos + 1);
+		$BaseFileName = substr($selectedFile, $WorkPos + 1);
+		$WorkPos = rindex($BaseFileName, '.');
+		if ($WorkPos != 0) {
+			$BaseFileName = substr($BaseFileName, 0, $WorkPos);
+		}
 		chdir ($BaseFilePath);
 		$Globals{$BaseFileName} = $Globals{"Default"};
-		#saveData();
+		# Save the data tables
+		saveData();
+		setConfiguredMenuState();
+		$::FileSaveChooser->hide();
 	}
+}
+#======================================================================
+sub loadConfigVars {
+	$ConfServerHost = $::ConfServerHost->get_text;
+	$ConfServerPort = $::ConfServerPort->get_text;
+	$ConfPlayerName = $::ConfPlayerName->get_text;
+	$ConfPlayerPswd = $::ConfPlayerPswd->get_text;
+	$LastSavedServerHost = $::ConfServerHost->get_text;
+	$LastSavedServerPort = $::ConfServerPort->get_text;
+	$LastSavedPlayerName = $::ConfPlayerName->get_text;
+	$LastSavedPlayerPswd = $::ConfPlayerPswd->get_text;
+	$::PrefWindow->hide();
+}
+#======================================================================
+sub setConfiguredMenuState {
+		# File Menu Options
+		$::NewMenuItem->set_sensitive(0);
+		$::OpenMenuItem->set_sensitive(0);
+		$::SaveMenuItem->set_sensitive(1);
+		$::CloseMenuItem->set_sensitive(1);
+		$::Configuration->set_sensitive(1);
+		# Connection Menu Options
+		$::OpenConMenuItem->set_sensitive(1);
+		$::CloseConMenuItem->set_sensitive(0);
+		# View menu options
+		$::MapMenuItem->set_sensitive(1);
+		$::ShipsMenuItem->set_sensitive(1);
+		$::PlanetsMenuItem->set_sensitive(1);
+		$::ScriptsMenuItem->set_sensitive(1);
+		$::CommandsMenuItem->set_sensitive(1);
+		$::ClearMenuItem->set_sensitive(1);
+}
+#======================================================================
+sub resetMenuState {
+		# File Menu Options
+		$::NewMenuItem->set_sensitive(1);
+		$::OpenMenuItem->set_sensitive(1);
+		$::SaveMenuItem->set_sensitive(0);
+		$::CloseMenuItem->set_sensitive(0);
+		$::Configuration->set_sensitive(0);
+		# Connection Menu Options
+		$::OpenConMenuItem->set_sensitive(0);
+		$::CloseConMenuItem->set_sensitive(0);
+		# View menu options
+		$::MapMenuItem->set_sensitive(0);
+		$::ShipsMenuItem->set_sensitive(0);
+		$::PlanetsMenuItem->set_sensitive(0);
+		$::ScriptsMenuItem->set_sensitive(0);
+		$::CommandsMenuItem->set_sensitive(0);
+		$::ClearMenuItem->set_sensitive(0);
 }
 #======================================================================
 sub method {

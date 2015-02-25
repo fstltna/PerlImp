@@ -134,6 +134,22 @@
                             <property name="position">3</property>
                           </packing>
                         </child>
+                        <child>
+                          <widget class="GtkLinkButton" id="linkbutton2">
+                            <property name="label" translatable="yes">Music By Hungry Lucy</property>
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="receives_default">True</property>
+                            <property name="has_tooltip">True</property>
+                            <property name="relief">none</property>
+                            <property name="uri">http://HungryLucy.com</property>
+                          </widget>
+                          <packing>
+                            <property name="expand">True</property>
+                            <property name="fill">True</property>
+                            <property name="position">4</property>
+                          </packing>
+                        </child>
                       </widget>
                     </child>
                   </widget>
@@ -364,6 +380,7 @@
                         <property name="can_focus">False</property>
                         <property name="use_underline">True</property>
                         <property name="use_stock">True</property>
+                        <signal name="activate" handler="Main-&gt;resetDefaults()" swapped="no"/>
                       </widget>
                     </child>
                     <child>
@@ -1486,6 +1503,7 @@ As you can tell by the name it is written in Perl. It uses the Gtk2 GUI library 
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
                     <property name="use_stock">True</property>
+                    <signal name="clicked" handler="Main-&gt;loadConfigVars()" swapped="no"/>
                   </widget>
                   <packing>
                     <property name="expand">True</property>
@@ -1500,7 +1518,7 @@ As you can tell by the name it is written in Perl. It uses the Gtk2 GUI library 
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
                     <property name="use_stock">True</property>
-                    <signal name="clicked" handler="Main::resetLastSaved()" swapped="no"/>
+                    <signal name="clicked" handler="Main-&gt;resetLastSaved()" swapped="no"/>
                   </widget>
                   <packing>
                     <property name="expand">True</property>

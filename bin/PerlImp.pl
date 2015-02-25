@@ -23,6 +23,14 @@ $Glade->load_objects;
 # Main object ----------------------------------------------------------
 our $Main = Imperium::Main->new;
 
+# Handle audio
+if (-e "/usr/bin/afplay") {	# On a Mac
+	system("(afplay ../lib/perl/Imperium/theme.mp3 &)");
+}
+elsif (-e "/usr/bin/vlc") {	# On Linux
+	system("(/usr/bin/vlc ../lib/perl/Imperium/theme.mp3 &)");
+}
+
 #=======================================================================
 Gtk2->main;
 exit 0;

@@ -17,7 +17,8 @@ use Storable;
 # Global Vars
 my $DEFAULTSERVER = "empiredirectory.net";
 my $DEFAULTSERVERPORT = "3458";
-my $BaseFilename = "Basename";	# What the left part of the file name should be
+my $BaseFileName = "Basename";	# What the left part of the file name should be
+my $BaseFilePath = "/usr/bin/";	# What the path should be
 my $DirtyData = 0;
 my $AtMainPrompt = 0;
 my $QueueOk = 1;
@@ -219,9 +220,9 @@ sub resetLastSaved {
 #======================================================================
 # Load in data
 sub loadData {
-	$Planets = retrieve("$BaseFilename.plan");
-	$Ships = retrieve("$BaseFilename.ship");
-	$Globals = retrieve("$BaseFilename.plimp");
+	$Planets = retrieve("$BaseFileName.plan");
+	$Ships = retrieve("$BaseFileName.ship");
+	$Globals = retrieve("$BaseFileName.plimp");
 }
 #======================================================================
 # Save data
@@ -234,13 +235,25 @@ sub saveData {
 # Save new data struct
 sub fileSaveInit {
 	my $self = shift;
-	my $selectedFile;
+	my $selectedFile, $WorkPos;
 
-	print "Parameters: @_\n";
-	$selectedFile = $FileSaveChooser->get_filename;
-	print "$selectedFile\n";
-	$BaseFileName = "";
-	#saveData();
+	$selectedFile = $::FileSaveChooser->get_filename;
+	if ($selectedFile ne "") {
+		#print "$selectedFile\n";
+		#($BaseFilepath, $BaseFileName) = split("/", $selectedFile);
+		$WorkPos = rindex($selectedFile, '/');
+		$BaseFilePath = substr($selectedFile, 0, $WorkPos + 1);
+		$BaseFileName = substr($selectedFile, $WorkPos + 1);
+		$WorkPos = rindex($BaseFileName, '.');
+		if ($WorkPos != 0) {
+			$BaseFileName = substr($BaseFileName, 0, $WorkPos);
+		}
+		#print "path = $BaseFilePath\n";
+		#print "name = $BaseFileName\n";
+		chdir ($BaseFilePath);
+		$Globals{$BaseFileName} = $Globals{"Default"};
+		#saveData();
+	}
 }
 #======================================================================
 sub method {

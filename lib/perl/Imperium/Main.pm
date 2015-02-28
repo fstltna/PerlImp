@@ -200,8 +200,7 @@ sub quit {
 	return unless Gtk2::Ex::Dialogs::Question->ask(
 		icon	=> q/question/,
 		title 	=> "Exit PerlImp?",
-		text 	=> "<span color='#a00'>Do you really want to quit?</span>",
-		resizeable  => 0	# ZZZ What should this be?
+		text 	=> "<span color='#a00'>Do you really want to quit?</span>"
 	);
 
 	return Gtk2->main_quit;
@@ -246,8 +245,11 @@ sub loadData {
 		setConfiguredMenuState();
 		# Load the data tables
 		$Planets = retrieve("$BaseFileName.plan");
+		die "Unable to retrieve planets from $BaseFileName.plan!\n" unless defined $Planets;
 		$Ships = retrieve("$BaseFileName.ship");
+		die "Unable to retrieve ships from $BaseFileName.ship!\n" unless defined $Ships;
 		$Globals = retrieve("$BaseFileName.plimp");
+		die "Unable to retrieve globals from $BaseFileName.plimp!\n" unless defined $Globals;
 		$LastSavedServerHost = $DEFAULTSERVER;
 		$LastSavedServerPort = $DEFAULTSERVERPORT;
 		$LastSavedPlayerName = "";
@@ -258,9 +260,9 @@ sub loadData {
 #======================================================================
 # Save data
 sub saveData {
-	store \$Planets, "$BaseFileName.plan";
-	store \$Ships, "$BaseFileName.ship";
-	store \$Globals, "$BaseFileName.plimp";
+	store \%Planets, "$BaseFileName.plan";
+	store \%Ships, "$BaseFileName.ship";
+	store \%Globals, "$BaseFileName.plimp";
 }
 #======================================================================
 # Save new data struct

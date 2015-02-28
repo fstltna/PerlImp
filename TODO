@@ -4,3 +4,4 @@ Changes in the process of being completed
 2) The “do you want to quit” message is resizable and should not be (I think this is a GTK+ issue, not my app)
 3) Maybe more? I coded these with "ZZZ"
 4) Need Help file content
+Need output from server passed to a function in PerlImp that parses it and returns what should be sent to user console, or nothing if all used up...

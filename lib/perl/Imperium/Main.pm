@@ -28,6 +28,8 @@ my $NumCmds = 0;
 my $Game_Time = 0;
 my $Game_BTUs = 0;
 my $GameSocket = -1;
+my $ConnectGood = 0;
+my $ActiveConnection = "";
 
 # Create Defs
 my $ConfServerHost = $DEFAULTSERVER;
@@ -351,10 +353,30 @@ sub method {
 #======================================================================
 sub openConnect {
 	print "called openConnect\n";
+	# If connected OK then set menu options
+	$ActiveConnection = new Net::Telnet (Timeout => 10,
+		Binmode => 1,
+		Host => $ConfServerHost,
+		Port => $ConfServerPort,
+		Telnetmode => 0
+		);
+	$ActiveConnection->open($ConfServerHost);
+	$ConnectGood = $ActiveConnection;
+	if ($ConnectGood)
+	{
+		$::OpenConMenuItem->set_sensitive(0);
+		$::CloseConMenuItem->set_sensitive(1);
+	}
 }
 #======================================================================
 sub closeConnect {
 	print "Called closeConnect\n";
+	# Reset menu options
+	$::OpenConMenuItem->set_sensitive(1);
+	$::CloseConMenuItem->set_sensitive(0);
+	$ConnectGood = 0;
+	$ActiveConnection->close;
+	$ActiveConnection = "";
 }
 #======================================================================
 

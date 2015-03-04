@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <glade-interface>
-  <!-- interface-requires gtk+ 2.24 -->
+  <!-- interface-requires gtk+ 2.18 -->
   <!-- interface-naming-policy toplevel-contextual -->
   <widget class="GtkWindow" id="About">
     <property name="can_focus">False</property>
@@ -243,8 +243,9 @@
             </child>
           </widget>
           <packing>
-            <property name="expand">True</property>
+            <property name="expand">False</property>
             <property name="fill">True</property>
+            <property name="pack_type">end</property>
             <property name="position">0</property>
           </packing>
         </child>
@@ -304,8 +305,9 @@
             </child>
           </widget>
           <packing>
-            <property name="expand">True</property>
+            <property name="expand">False</property>
             <property name="fill">True</property>
+            <property name="pack_type">end</property>
             <property name="position">0</property>
           </packing>
         </child>
@@ -409,6 +411,54 @@
                         <property name="use_stock">True</property>
                         <signal name="activate" handler="Main-&gt;quit()" swapped="no"/>
                         <signal name="button_release_event" handler="gtk_main_quit" swapped="no"/>
+                      </widget>
+                    </child>
+                  </widget>
+                </child>
+              </widget>
+            </child>
+            <child>
+              <widget class="GtkMenuItem" id="menuitem6">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes">_Options</property>
+                <property name="use_underline">True</property>
+                <child>
+                  <widget class="GtkMenu" id="menu5">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <child>
+                      <widget class="GtkMenuItem" id="menuitem7">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="label" translatable="yes">Music</property>
+                        <property name="use_underline">True</property>
+                        <child>
+                          <widget class="GtkMenu" id="menu6">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <child>
+                              <widget class="GtkImageMenuItem" id="menuitem8">
+                                <property name="label">gtk-media-play</property>
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="use_underline">True</property>
+                                <property name="use_stock">True</property>
+                                <signal name="activate" handler="Audio-&gt;start()" swapped="no"/>
+                              </widget>
+                            </child>
+                            <child>
+                              <widget class="GtkImageMenuItem" id="menuitem9">
+                                <property name="label">gtk-media-stop</property>
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="use_underline">True</property>
+                                <property name="use_stock">True</property>
+                                <signal name="activate" handler="Audio-&gt;stop()" swapped="no"/>
+                              </widget>
+                            </child>
+                          </widget>
+                        </child>
                       </widget>
                     </child>
                   </widget>
@@ -772,16 +822,30 @@
           </packing>
         </child>
         <child>
-          <widget class="GtkScrolledWindow" id="GUI_MainDisplayWindow">
-            <property name="height_request">327</property>
+          <widget class="GtkAlignment" id="alignment3">
             <property name="visible">True</property>
-            <property name="sensitive">False</property>
             <property name="can_focus">False</property>
-            <property name="border_width">1</property>
-            <property name="hscrollbar_policy">never</property>
-            <property name="shadow_type">out</property>
+            <property name="top_padding">3</property>
+            <property name="bottom_padding">3</property>
+            <property name="left_padding">3</property>
+            <property name="right_padding">3</property>
             <child>
-              <placeholder/>
+              <widget class="GtkScrolledWindow" id="GUI_MainDisplayWindow">
+                <property name="height_request">327</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="border_width">1</property>
+                <property name="hscrollbar_policy">automatic</property>
+                <property name="vscrollbar_policy">automatic</property>
+                <property name="shadow_type">etched-in</property>
+                <child>
+                  <widget class="GtkTextView" id="GUI_Terminal">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="editable">False</property>
+                  </widget>
+                </child>
+              </widget>
             </child>
           </widget>
           <packing>
@@ -855,7 +919,7 @@
               </packing>
             </child>
             <child>
-              <widget class="GtkEntry" id="entry1">
+              <widget class="GtkEntry" id="entryXZY">
                 <property name="visible">True</property>
                 <property name="sensitive">False</property>
                 <property name="can_focus">False</property>

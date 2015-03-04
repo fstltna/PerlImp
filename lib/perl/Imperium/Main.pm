@@ -231,7 +231,7 @@ sub resetLastSaved {
 #======================================================================
 # Load in data
 sub loadData {
-	my $selectedFile, $WorkPos;
+	my( $selectedFile, $WorkPos );
 
 	$::FileOpenChooser->add_filter($filter);
 	$selectedFile = $::FileOpenChooser->get_filename;
@@ -270,7 +270,7 @@ sub saveData {
 # Save new data struct
 sub fileSaveInit {
 	my $self = shift;
-	my $selectedFile, $WorkPos;
+	my( $selectedFile, $WorkPos );
 
 	$::FileSaveChooser->add_filter($filter);
 	$selectedFile = $::FileSaveChooser->get_filename;

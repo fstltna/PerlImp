@@ -7,4 +7,5 @@ set -vx # Echo commands & output
 /usr/bin/perl -MCPAN -e 'install Storable'
 /usr/bin/perl -MCPAN -e 'install Readonly'
 /usr/bin/perl -MCPAN -e 'install File::Type'
+/usr/bin/perl -MCPAN -e 'install Config::Tiny'
 exit (0)

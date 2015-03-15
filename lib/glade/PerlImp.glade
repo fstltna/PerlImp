@@ -482,7 +482,7 @@
                         <property name="sensitive">False</property>
                         <property name="can_focus">False</property>
                         <property name="use_stock">False</property>
-                        <signal name="activate" handler="Main-&gt;openConnect()" swapped="no"/>
+                        <signal name="activate" handler="Engine-&gt;openConnect()" swapped="no"/>
                         <child internal-child="image">
                           <widget class="GtkImage" id="image1">
                             <property name="visible">True</property>
@@ -499,7 +499,7 @@
                         <property name="sensitive">False</property>
                         <property name="can_focus">False</property>
                         <property name="use_stock">False</property>
-                        <signal name="activate" handler="Main-&gt;closeConnect()" swapped="no"/>
+                        <signal name="activate" handler="Engine-&gt;closeConnect()" swapped="no"/>
                         <child internal-child="image">
                           <widget class="GtkImage" id="image2">
                             <property name="visible">True</property>

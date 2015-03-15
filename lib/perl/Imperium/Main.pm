@@ -11,7 +11,7 @@ use Gtk2::Ex::Dialogs (
 	modal 				=> 1, 
 	no_separator 		=> 0 
 );
-use Net::Telnet;
+
 use Storable;
 #=======================================================================
 # Global Vars
@@ -192,8 +192,34 @@ sub new {
 	my ($class) = @_;
 	
 	my $self = bless { }, $class; 
+	$self->init;
 	
 	return $self;
+}
+#=======================================================================
+sub init {
+	my ($self) = @_;
+	
+	# Set font for a terminal view -------------------------------------
+	$::GUI_Terminal->modify_font(
+        Gtk2::Pango::FontDescription->from_string( 'monospace' )
+    );
+	
+	# Set base foldersr ------------------------------------------------
+	my $dir = Glib::get_home_dir();
+	$::FileSaveChooser->set_current_folder($dir);
+	$::FileOpenChooser->set_current_folder($dir);
+	
+	# Set filter -------------------------------------------------------
+	my $filter = Gtk2::FileFilter->new();
+	$filter->add_pattern( '*.PerlImp'				);
+	$filter->set_name	( 'Imperium   (*.PerlImp)'	);
+	
+	$::FileSaveChooser->add_filter( $filter );
+	$::FileOpenChooser->add_filter( $filter );
+	
+	#-------------------------------------------------------------------
+	return;
 }
 #=======================================================================
 sub quit { 
@@ -340,7 +366,7 @@ sub resetMenuState {
 		$::CommandsMenuItem->set_sensitive(0);
 		$::ClearMenuItem->set_sensitive(0);
 }
-#======================================================================
+#=======================================================================
 sub method {
 	my $self = shift;
 
@@ -350,9 +376,11 @@ sub method {
 		print "Parameters: @_\n"; 
 	}
 }
-#======================================================================
+#=======================================================================
+=backup
 sub openConnect {
 	print "called openConnect\n";
+	
 	# If connected OK then set menu options
 	$ActiveConnection = new Net::Telnet (Timeout => 10,
 		Binmode => 1,
@@ -368,7 +396,7 @@ sub openConnect {
 		$::CloseConMenuItem->set_sensitive(1);
 	}
 }
-#======================================================================
+#=======================================================================
 sub closeConnect {
 	print "Called closeConnect\n";
 	# Reset menu options
@@ -378,6 +406,7 @@ sub closeConnect {
 	$ActiveConnection->close;
 	$ActiveConnection = "";
 }
+=cut
 #======================================================================
 
 1;

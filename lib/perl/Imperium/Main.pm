@@ -212,8 +212,8 @@ sub init {
 	
 	# Set filter -------------------------------------------------------
 	my $filter = Gtk2::FileFilter->new();
-	$filter->add_pattern( '*.PerlImp'				);
-	$filter->set_name	( 'Imperium   (*.PerlImp)'	);
+	$filter->add_pattern( '*.perlimp'				);
+	$filter->set_name	( 'Imperium   (*.perlimp)'	);
 	
 	$::FileSaveChooser->add_filter( $filter );
 	$::FileOpenChooser->add_filter( $filter );
@@ -276,8 +276,8 @@ sub loadData {
 		die "Unable to retrieve planets from $BaseFileName.plan!\n" unless defined $Planets;
 		$Ships = retrieve("$BaseFileName.ship");
 		die "Unable to retrieve ships from $BaseFileName.ship!\n" unless defined $Ships;
-		$Globals = retrieve("$BaseFileName.plimp");
-		die "Unable to retrieve globals from $BaseFileName.plimp!\n" unless defined $Globals;
+		$Globals = retrieve("$BaseFileName.perlimp");
+		die "Unable to retrieve globals from $BaseFileName.perlimp!\n" unless defined $Globals;
 		$LastSavedServerHost = $DEFAULTSERVER;
 		$LastSavedServerPort = $DEFAULTSERVERPORT;
 		$LastSavedPlayerName = "";
@@ -290,7 +290,7 @@ sub loadData {
 sub saveData {
 	store \%Planets, "$BaseFileName.plan";
 	store \%Ships, "$BaseFileName.ship";
-	store \%Globals, "$BaseFileName.plimp";
+	store \%Globals, "$BaseFileName.perlimp";
 }
 #======================================================================
 # Save new data struct

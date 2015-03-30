@@ -26,6 +26,15 @@ sub new {
 sub init {
 	my ($self) = @_;
 	
+	#-------------------------------------------------------------------
+	$::GUI_Terminal->signal_connect( 'size-allocate' =>
+		sub {
+			my $adj = $::GUI_MainDisplayWindow->get_vadjustment;
+			$adj->set_value( $adj->upper - $adj->page_size );
+			return;
+		}
+	);
+	#-------------------------------------------------------------------
 	$::GUI_MainInput->signal_connect( event =>
         sub {
 			# We have nothing to do in this situation... ---------------
@@ -50,6 +59,7 @@ sub init {
             return;
         }
     );
+    #-------------------------------------------------------------------
 }
 #=======================================================================
 sub openConnect {
@@ -81,7 +91,7 @@ sub openConnect {
 				last unless scalar( @ready );
 				my $sock = shift @ready;
 				$sock->sysread( my $txt, 1000 );
-				
+				return 1 unless length( $txt );
 				$::GUI_Terminal->get_buffer->insert_at_cursor( $txt );
 			}
 			return 1;

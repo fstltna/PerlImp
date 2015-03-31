@@ -92,7 +92,48 @@ sub openConnect {
 				my $sock = shift @ready;
 				$sock->sysread( my $txt, 1000 );
 				return 1 unless length( $txt );
-				$::GUI_Terminal->get_buffer->insert_at_cursor( $txt );
+				# Check for our introduction leaders
+				if ((substr($txt, 0, 1) ne ":") && (substr($txt, 0, 1) ne "!"))
+				{
+					# None, so send all output
+					$::GUI_Terminal->get_buffer->insert_at_cursor( $txt );
+				}
+				else
+				{
+					# Saw one of them, so parse it
+					if (substr($txt, 0, 1) eq ":")
+					{
+						# Was password or player prompt
+						if (substr($txt, 0, 19) eq ":Enter player name:")
+						{
+							$::GUI_Terminal->get_buffer->insert_at_cursor( substr($txt, 1) );
+							if ($ZZZ->UserName ne "")
+							{
+								my @ready = $self->{ sock }->can_write();
+								my $sock = shift @ready;
+								$sock->syswrite( "!" . $ZZZ->UserName );
+							}
+						}
+						elsif (substr($txt, 0, 23) eq ":Enter player password:")
+						{
+							$::GUI_Terminal->get_buffer->insert_at_cursor( substr($txt, 1) );
+							if ($ZZZ->UserPass ne "")
+							{
+								my @ready = $self->{ sock }->can_write();
+								my $sock = shift @ready;
+								$sock->syswrite( $ZZZ->UserPass );
+							}
+						}
+						else
+						{
+							$::GUI_Terminal->get_buffer->insert_at_cursor( $txt);
+						}
+					}
+					else
+					{
+						# One of the other intros
+					}
+				}
 			}
 			return 1;
 		}

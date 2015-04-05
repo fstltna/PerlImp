@@ -9,4 +9,5 @@ set -vx # Echo commands & output
 /usr/bin/perl -MCPAN -e 'install File::Type'
 /usr/bin/perl -MCPAN -e 'install Config::Tiny'
 /usr/bin/perl -MCPAN -e 'install Class::Accessor::Fast'
+/usr/bin/perl -MCPAN -e 'install Hash::AsObject'
 exit (0)

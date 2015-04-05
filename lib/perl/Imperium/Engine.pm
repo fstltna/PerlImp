@@ -107,21 +107,21 @@ sub openConnect {
 						if (substr($txt, 0, 19) eq ":Enter player name:")
 						{
 							$::GUI_Terminal->get_buffer->insert_at_cursor( substr($txt, 1) );
-							if ($ZZZ->UserName ne "")
+							if ($::Main->active->PlayerName ne "")
 							{
 								my @ready = $self->{ sock }->can_write();
 								my $sock = shift @ready;
-								$sock->syswrite( "!" . $ZZZ->UserName );
+								$sock->syswrite( "!" . $::Main->active->PlayerName );
 							}
 						}
 						elsif (substr($txt, 0, 23) eq ":Enter player password:")
 						{
 							$::GUI_Terminal->get_buffer->insert_at_cursor( substr($txt, 1) );
-							if ($ZZZ->UserPass ne "")
+							if ($::Main->active->PlayerPswd ne "")
 							{
 								my @ready = $self->{ sock }->can_write();
 								my $sock = shift @ready;
-								$sock->syswrite( $ZZZ->UserPass );
+								$sock->syswrite( $::Main->active->PlayerPswd );
 							}
 						}
 						else

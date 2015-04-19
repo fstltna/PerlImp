@@ -109,7 +109,7 @@
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="label" translatable="yes">Welcome to PerlImp, the best client for Imperium
-(C) 2015 Poocketfiction</property>
+(C) 2015 Pocketfiction</property>
                             <property name="justify">center</property>
                           </widget>
                           <packing>
@@ -148,6 +148,22 @@
                             <property name="expand">True</property>
                             <property name="fill">True</property>
                             <property name="position">4</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <widget class="GtkLinkButton" id="linkbutton3">
+                            <property name="label" translatable="yes">Development Support by Łukasz Strzelecki</property>
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="receives_default">True</property>
+                            <property name="has_tooltip">True</property>
+                            <property name="relief">none</property>
+                            <property name="uri">http://gtk2-perl.sourceforge.net</property>
+                          </widget>
+                          <packing>
+                            <property name="expand">True</property>
+                            <property name="fill">True</property>
+                            <property name="position">5</property>
                           </packing>
                         </child>
                       </widget>
@@ -1955,7 +1971,7 @@ they get stranded near you, for a fee of course.</property>
             </child>
             <child>
               <widget class="GtkButton" id="button1">
-                <property name="label">gtk-close</property>
+                <property name="label">gtk-refresh</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
@@ -2051,7 +2067,7 @@ they get stranded near you, for a fee of course.</property>
             </child>
             <child>
               <widget class="GtkButton" id="button1">
-                <property name="label">gtk-close</property>
+                <property name="label">gtk-refresh</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
@@ -2427,7 +2443,7 @@ they get stranded near you, for a fee of course.</property>
             </child>
             <child>
               <widget class="GtkButton" id="button1">
-                <property name="label">gtk-close</property>
+                <property name="label">gtk-refresh</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>

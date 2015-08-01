@@ -268,11 +268,12 @@ sub resetLastSaved {
 	$self->active->ServerPort( $self->defs->LastSavedServerPort );
 	$self->active->PlayerName( $self->defs->LastSavedPlayerName );
 	$self->active->PlayerPswd( $self->defs->LastSavedPlayerPswd );
-	
-	$::ConfServerHost->set_text( $self->defs->LastSavedServerHost );
-	$::ConfServerPort->set_text( $self->defs->LastSavedServerPort );
-	$::ConfPlayerName->set_text( $self->defs->LastSavedPlayerName );
-	$::ConfPlayerPswd->set_text( $self->defs->LastSavedPlayerPswd );
+
+#	ZZZ
+#	$::ConfServerHost->set_text( $self->defs->LastSavedServerHost );
+#	$::ConfServerPort->set_text( $self->defs->LastSavedServerPort );
+#	$::ConfPlayerName->set_text( $self->defs->LastSavedPlayerName );
+#	$::ConfPlayerPswd->set_text( $self->defs->LastSavedPlayerPswd );
 	
 	$::PrefWindow->hide();
 	

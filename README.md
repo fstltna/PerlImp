@@ -1,3 +1,7 @@
+Official github repo: https://github.com/fstltna/PerlImp/
+
+Official website: https://EmpireDirectory.net
+
 # PerlImp
 Imperium client coded in Perl
 ## What is Imperium?

@@ -67,8 +67,8 @@ sub openConnect {
 	
 	# Connect to the server --------------------------------------------
 	my $sock = IO::Socket::INET->new(
-		PeerAddr => $::Cfg->{ SERVER }->{ host },
-        PeerPort => $::Cfg->{ SERVER }->{ port },
+	PeerAddr => $::Main->active->ServerHost,
+        PeerPort => $::Main->active->ServerPort,
         Proto    => 'tcp'
 	) or return Gtk2::Ex::Dialogs::ErrorMsg->new_and_run( 
 		icon	=> q/error/,
@@ -93,46 +93,15 @@ sub openConnect {
 				$sock->sysread( my $txt, 1000 );
 				return 1 unless length( $txt );
 				# Check for our introduction leaders
-				if ((substr($txt, 0, 1) ne ":") && (substr($txt, 0, 1) ne "!"))
+				if (($txt =~ /^\:/) || ($txt =~ /^\!/) || ($txt =~ /:Enter player name:/))
 				{
-					# None, so send all output
-					$::GUI_Terminal->get_buffer->insert_at_cursor( $txt );
+					# Saw one of them, so parse it
+					processServerOutput($txt,$self);
 				}
 				else
 				{
-					# Saw one of them, so parse it
-					if (substr($txt, 0, 1) eq ":")
-					{
-						# Was password or player prompt
-						if (substr($txt, 0, 19) eq ":Enter player name:")
-						{
-							$::GUI_Terminal->get_buffer->insert_at_cursor( substr($txt, 1) );
-							if ($::Main->active->PlayerName ne "")
-							{
-								my @ready = $self->{ sock }->can_write();
-								my $sock = shift @ready;
-								$sock->syswrite( "!" . $::Main->active->PlayerName );
-							}
-						}
-						elsif (substr($txt, 0, 23) eq ":Enter player password:")
-						{
-							$::GUI_Terminal->get_buffer->insert_at_cursor( substr($txt, 1) );
-							if ($::Main->active->PlayerPswd ne "")
-							{
-								my @ready = $self->{ sock }->can_write();
-								my $sock = shift @ready;
-								$sock->syswrite( $::Main->active->PlayerPswd );
-							}
-						}
-						else
-						{
-							$::GUI_Terminal->get_buffer->insert_at_cursor( $txt);
-						}
-					}
-					else
-					{
-						# One of the other intros
-					}
+					# None, so send all output
+					$::GUI_Terminal->get_buffer->insert_at_cursor( $txt );					
 				}
 			}
 			return 1;
@@ -140,6 +109,48 @@ sub openConnect {
 	);
 	
 	return;
+}
+
+sub processServerOutput{
+	my ($txt,$self) = @_;
+	if ($txt =~ ":")
+	{
+		# Was password or player prompt
+		if ($txt =~ /:Enter player name:/)
+		{	
+			$txt = ($txt . $::Main->active->PlayerName . "\n");
+			$::GUI_Terminal->get_buffer->insert_at_cursor( substr($txt, 1) );
+			if ($::Main->active->PlayerName ne "")
+			{
+				my @ready = $self->{ sock }->can_write();
+				my $sock = shift @ready;
+				$sock->syswrite( $::Main->active->PlayerName . "\n" );
+			}
+		}
+		elsif ($txt =~ /^:Enter player password:/)
+		{
+			if ($::Main->active->PlayerPswd ne "")
+			{
+				$txt = ($txt . "*******\n");
+				$::GUI_Terminal->get_buffer->insert_at_cursor( substr($txt, 1) );	
+				my @ready = $self->{ sock }->can_write();
+				my $sock = shift @ready;
+				$sock->syswrite( $::Main->active->PlayerPswd  . "\n");
+			}else
+			{
+				$::GUI_Terminal->get_buffer->insert_at_cursor( substr($txt, 1) );
+			}
+		}
+		else
+		{
+			$::GUI_Terminal->get_buffer->insert_at_cursor( $txt);
+		}
+	}
+	else
+	{
+		# One of the other intros
+	}
+
 }
 #=======================================================================
 sub connected {

@@ -49,6 +49,8 @@ sub init_cfg {
 		GameSocket 			=> -1,
 		ConnectGood 		=> 0,
 		ActiveConnection 	=> "",
+		DefaultUsername 	=> "",
+		DefaultPassword		=> "",
 	);
 	
 	
@@ -68,8 +70,8 @@ sub init_cfg {
 	$self->{ default } = Hash::AsObject->new(	
 		ServerHost			=> $self->vars->DEFAULTSERVER,
 		ServerPort			=> $self->vars->DEFAULTSERVERPORT,
-		PlayerName			=> '',
-		PlayerPswd			=> '',
+		PlayerName			=> $self->vars->DefaultUsername,
+		PlayerPswd			=> $self->vars->DefaultPassword,
 		GameVersion 		=> 1,
 		GameDesc			=> '',
 		SizeX				=> 255,
@@ -318,10 +320,18 @@ sub loadData {
 		die "Unable to retrieve globals from " . $self->vars->BaseFileName . ".perlimp!\n" unless defined $Globals;
 		$self->vars( Hash::AsObject->new( $Globals ) );
 		
+		$self->defs->ConfServerHost( $self->vars->DEFAULTSERVER 	 );
+		$self->defs->ConfServerPort( $self->vars->DEFAULTSERVERPORT );
+		$self->defs->ConfPlayerName( $self->vars->DefaultUsername );
+		$self->defs->ConfPlayerPswd( $self->vars->DefaultPassword );
 		$self->defs->LastSavedServerHost( $self->vars->DEFAULTSERVER 	 );
 		$self->defs->LastSavedServerPort( $self->vars->DEFAULTSERVERPORT );
-		$self->defs->LastSavedPlayerName( "" );
-		$self->defs->LastSavedPlayerPswd( "" );
+		$self->defs->LastSavedPlayerName( $self->vars->DefaultUsername );
+		$self->defs->LastSavedPlayerPswd( $self->vars->DefaultPassword );
+		$self->active->ServerHost( $self->defs->LastSavedServerHost );
+		$self->active->ServerPort( $self->defs->LastSavedServerPort );
+		$self->active->PlayerName( $self->defs->LastSavedPlayerName );
+		$self->active->PlayerPswd( $self->defs->LastSavedPlayerPswd );
 		
 		$::FileOpenChooser->hide();
 	}
@@ -373,10 +383,18 @@ sub loadConfigVars {
 	$self->defs->ConfServerPort( $::ConfServerPort->get_text );
 	$self->defs->ConfPlayerName( $::ConfPlayerName->get_text );
 	$self->defs->ConfPlayerPswd( $::ConfPlayerPswd->get_text );
+	$self->vars->DEFAULTSERVER( $::ConfServerHost->get_text );
+	$self->vars->DEFAULTSERVERPORT( $::ConfServerPort->get_text );
+	$self->vars->DefaultUsername( $::ConfPlayerName->get_text );
+	$self->vars->DefaultPassword( $::ConfPlayerPswd->get_text );
 	$self->defs->LastSavedServerHost( $::ConfServerHost->get_text );
 	$self->defs->LastSavedServerPort( $::ConfServerPort->get_text );
 	$self->defs->LastSavedPlayerName( $::ConfPlayerName->get_text );
 	$self->defs->LastSavedPlayerPswd( $::ConfPlayerPswd->get_text );
+	$self->active->ServerHost( $self->defs->LastSavedServerHost );
+	$self->active->ServerPort( $self->defs->LastSavedServerPort );
+	$self->active->PlayerName( $self->defs->LastSavedPlayerName );
+	$self->active->PlayerPswd( $self->defs->LastSavedPlayerPswd );
 	
 	$::PrefWindow->hide();
 }

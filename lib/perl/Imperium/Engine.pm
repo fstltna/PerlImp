@@ -53,8 +53,7 @@ sub init {
 			# Send message to a server ---------------------------------
 			my @ready = $self->{ sock }->can_write();
 			my $sock = shift @ready;
-			$sock->syswrite( $txt );
-			
+			$sock->syswrite( $txt );		
 			# Always "return;" ...and never "return 1;" ----------------
             return;
         }
@@ -75,7 +74,9 @@ sub openConnect {
 		title 	=> 	"Error while connecting...",
 		text 	=> 	"<span color='#a00'>Cannot connect to server!</span>\n\n$@"
 	);
-	
+
+	# Update GUI status -------------------------------------------------
+	$::GUI_StatusField->set_text( "Online" );
 	# Set the menu options ---------------------------------------------
 	$::OpenConMenuItem ->set_sensitive(0);
 	$::CloseConMenuItem->set_sensitive(1);
@@ -164,6 +165,8 @@ sub closeConnect {
 	my ($sock) = $self->{ sock }->handles;
 	delete( $self->{ sock } )->remove( $sock );
 	$sock->close;
+	# Update GUI status -------------------------------------------------
+	$::GUI_StatusField->set_text( "Offline" );
 	
 	# Reset terminal ---------------------------------------------------
 	$::GUI_Terminal->get_buffer->set_text( q[] );

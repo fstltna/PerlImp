@@ -47,7 +47,7 @@ sub init_cfg {
 		Game_Time 			=> 0,
 		Game_BTUs 			=> 0,
 		GameSocket 			=> -1,
-		ConnectGood 		=> 0,
+		ConnectGood 		=> 1,
 		ActiveConnection 	=> "",
 		DefaultUsername 	=> "",
 		DefaultPassword		=> "",
@@ -332,6 +332,11 @@ sub loadData {
 		$self->active->ServerPort( $self->defs->LastSavedServerPort );
 		$self->active->PlayerName( $self->defs->LastSavedPlayerName );
 		$self->active->PlayerPswd( $self->defs->LastSavedPlayerPswd );
+
+		$::ConfServerHost->set_text( $self->defs->ConfServerHost );
+		$::ConfServerPort->set_text( $self->defs->ConfServerPort );
+		$::ConfPlayerName->set_text( $self->defs->ConfPlayerName );
+		$::ConfPlayerPswd->set_text( $self->defs->ConfPlayerPswd );
 		
 		$::FileOpenChooser->hide();
 	}

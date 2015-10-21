@@ -10,4 +10,6 @@ set -vx # Echo commands & output
 /usr/bin/perl -MCPAN -e 'install Config::Tiny'
 /usr/bin/perl -MCPAN -e 'install Class::Accessor::Fast'
 /usr/bin/perl -MCPAN -e 'install Hash::AsObject'
-exit (0)
+/usr/bin/perl -MCPAN -e 'install Array::AsObject'
+/usr/bin/perl -MCPAN -e 'install Text::Table'
+exit(0)

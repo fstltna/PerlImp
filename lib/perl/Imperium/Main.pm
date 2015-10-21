@@ -15,6 +15,7 @@ use Gtk2::Ex::Dialogs (
 );
 
 use Hash::AsObject;
+use Array::AsObject;
 use Storable;
 #=======================================================================
 Imperium::Main->mk_accessors( qw( vars defs default planets ships active ) );
@@ -167,15 +168,24 @@ sub init_cfg {
 		chkpoint => ''			# Planet checkpoint
 	);
 
+	$self->{ ships } = Array::AsObject->new(qw());
 	# Ship table definitions
-	$self->{ ships } = Hash::AsObject->new(	
-		flags => 0,			# Bitfield - See above for meanings
-		last_seen => '',	# When the planet was last seen
+	
+	#-------------------------------------------------------------------
+	$self->active( clone( $self->default ) );
+	#-------------------------------------------------------------------
+	
+	return;
+}
+#=======================================================================
+sub init_newShip{
+	return Hash::AsObject->new(	
+		ShipNumber => 0,		#ship number
 		ShipType => '',		# st_a -> st_m
 		planet => 0,		# What planet it is on, if any
 		fuelLeft => 0,		# fuel left
-		cargo => 0,			# current cargo amount
-		armourLeft => 0,	# Armor left on hull
+		cargo => 0,		# current cargo amount
+		armorLeft => 0,		# Armor left on hull
 		sh_row => 0,		# What row it is in 
 		sh_col => 0,		# What col it is in 
 		shields => 0,		# energy in shields 
@@ -185,7 +195,7 @@ sub init_cfg {
 		sh_tf => 0,			# Global tech factor
 		fleet => '',		# Fleet it is in    
 		efficiency => 0,	# Efficiency        
-		owner => 0,			# Who owns it       
+		owner => "",			# Who owns it       
 		plagueStage => 0,	# What stage of the plague is it in
 		hullTF => 0,		# Hull tech factor
 		engTF => 0,			# Engine tech factorr
@@ -205,14 +215,13 @@ sub init_cfg {
 		num_eng => 0,		# Engines
 		num_life => 0,		# Life support
 		num_wpn => 0,		# Weapons
-		num_elect => 0		# Electronics
+		num_elect => 0,		# Electronics
+		config_DAK => '',		# Config D A K
+		F => '',
+		price => 0,		#price	
+		cargo_Avl => 0,
+		cargo_Pln => 0
 	);
-	
-	#-------------------------------------------------------------------
-	$self->active( clone( $self->default ) );
-	#-------------------------------------------------------------------
-	
-	return;
 }
 #=======================================================================
 sub init_gui {
@@ -314,8 +323,9 @@ sub loadData {
 		
 		my $Ships = retrieve( $self->vars->BaseFileName . ".ship");
 		die "Unable to retrieve ships from " . $self->vars->BaseFileName . ".ship!\n" unless defined $Ships;
-		$self->ships( Hash::AsObject->new( $Ships ) );
-		
+		$self->ships->list( $Ships->list() );
+		$::Engine->updateShipWindow;
+
 		my $Globals = retrieve( $self->vars->BaseFileName . ".perlimp" );
 		die "Unable to retrieve globals from " . $self->vars->BaseFileName . ".perlimp!\n" unless defined $Globals;
 		$self->vars( Hash::AsObject->new( $Globals ) );
@@ -392,6 +402,10 @@ sub loadConfigVars {
 	$self->vars->DEFAULTSERVERPORT( $::ConfServerPort->get_text );
 	$self->vars->DefaultUsername( $::ConfPlayerName->get_text );
 	$self->vars->DefaultPassword( $::ConfPlayerPswd->get_text );
+	if(! ($self->defs->LastSavedPlayerName =~ /$self->defs->ConfPlayerName/)){  #changed user, reset ships
+		$self->ships->list( init_newShip );
+		$::Engine->updateShipWindow;
+	}
 	$self->defs->LastSavedServerHost( $::ConfServerHost->get_text );
 	$self->defs->LastSavedServerPort( $::ConfServerPort->get_text );
 	$self->defs->LastSavedPlayerName( $::ConfPlayerName->get_text );

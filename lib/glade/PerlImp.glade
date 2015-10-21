@@ -2403,14 +2403,29 @@ they get stranded near you, for a fee of course.</property>
                         <property name="spacing">10</property>
                         <child>
                           <widget class="GtkScrolledWindow" id="HelpDisplay">
-                            <property name="width_request">480</property>
+                            <property name="width_request">800</property>
                             <property name="height_request">320</property>
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="hscrollbar_policy">automatic</property>
                             <property name="vscrollbar_policy">automatic</property>
                             <child>
-                              <placeholder/>
+                              <widget class="GtkViewport" id="ShipView">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <child>
+                                  <widget class="GtkVBox" id="ShipCensusRows">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <child>
+                                      <placeholder/>
+                                    </child>
+                                    <child>
+                                      <placeholder/>
+                                    </child>
+                                  </widget>
+                                </child>
+                              </widget>
                             </child>
                           </widget>
                           <packing>

@@ -3,7 +3,7 @@ Official github repo: https://github.com/fstltna/PerlImp/
 Official website: https://EmpireDirectory.net
 
 # PerlImp
-Imperium client coded in Perl
+Imperium GUI client coded in Perl
 
 To set up this please install the dependancies using the bin/LoadDeps.sh script
 
